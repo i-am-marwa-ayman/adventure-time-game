@@ -8,6 +8,11 @@ using namespace std;
 
 int finX = -60;
 int finY = -10;
+int coinX = 54;
+int coinY = -2;
+int batteryX = -56;
+int batteryY = 36;
+int gainedCoins = 0;
 
 void coloredDotStrip(int start, float red, float green, float blue, int inc){
     glColor3f(red/255.0,green/255.0,blue/255.0);
@@ -27,15 +32,6 @@ void coloredRec(int startX, int endX, int startY, int endY, float red, float gre
     glVertex2f(endX, startY);
     glVertex2f(endX, endY);
     glVertex2f(startX, endY);
-    glEnd();
-}
-void coloredPixel(int x, int y, float red, float green, float blue){
-    glColor3f(red/255.0,green/255.0,blue/255.0);
-    glBegin(GL_QUADS);
-    glVertex2f(x, y);
-    glVertex2f(x + 1, y);
-    glVertex2f(x + 1, y + 1);
-    glVertex2f(x, y + 1);
     glEnd();
 }
 void background(){
@@ -79,6 +75,7 @@ void drawfin(){
     coloredRec(finX + 4, finX + 5, finY - 5, finY - 6,0,0,0);
     coloredRec(finX + 9, finX + 10, finY - 5, finY - 6,0,0,0);
     coloredRec(finX + 6, finX + 8, finY - 6, finY - 7,0,0,0);
+
     //black outline
     coloredRec(finX + 2, finX + 4, finY, finY - 1,0,0,0);
     coloredRec(finX + 10, finX + 12, finY, finY - 1,0,0,0);
@@ -96,13 +93,41 @@ void drawfin(){
     coloredRec(finX + 9, finX + 12, finY - 15, finY - 16,0,0,0);
     coloredRec(finX + 5, finX + 9, finY - 14, finY - 15,0,0,0);
 }
+void drawCoin(){
+    coloredRec(coinX + 1, coinX + 4, coinY - 0, coinY - 5,215,99,2);
+    coloredRec(coinX + 0, coinX + 5, coinY - 1, coinY - 4,215,99,2);
+    coloredRec(coinX + 2, coinX + 5, coinY - 0, coinY - 5,255,210,28);
+    coloredRec(coinX + 1, coinX + 6, coinY - 1, coinY - 4,255,210,28);
+    coloredRec(coinX + 2, coinX + 5, coinY - 1, coinY - 4,255,165,2);
+    coloredRec(coinX + 3, coinX + 5, coinY - 1, coinY - 2,215,99,2);
+    coloredRec(coinX + 4, coinX + 5, coinY - 1, coinY - 4,215,99,2);
+}
+void drawBattery(){
+    coloredRec(batteryX + 0, batteryX + 12, batteryY - 1, batteryY - 6,0,0,0);
+    coloredRec(batteryX + 1, batteryX + 11, batteryY - 0, batteryY - 7,0,0,0);
+    coloredRec(batteryX + 12, batteryX + 13, batteryY - 2, batteryY - 5,0,0,0);
+
+    coloredRec(batteryX + 1, batteryX + 11, batteryY - 1, batteryY - 6,255,255,255);
+
+    for(int i = 0;i < 3;i++){
+        if(i < gainedCoins){
+            coloredRec(batteryX + 2 + i * 3, batteryX + 4 + i * 3, batteryY - 2, batteryY - 4,251,2,0);
+            coloredRec(batteryX + 2 + i * 3, batteryX + 4 + i * 3, batteryY - 4, batteryY - 5,169,8,14);
+        } else {
+            coloredRec(batteryX + 2 + i * 3, batteryX + 4 + i * 3, batteryY - 2, batteryY - 4,215,215,215);
+            coloredRec(batteryX + 2 + i * 3, batteryX + 4 + i * 3, batteryY - 4, batteryY - 5,167,167,167);
+        }
+    }
+}
 void display(){
     glClear(GL_COLOR_BUFFER_BIT);
     gluOrtho2D(-60, 60, -40, 40);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     background();
+    drawBattery();
     drawfin();
+    drawCoin();
     glFlush(); 
 }
 int main(int argc, char** argv){
