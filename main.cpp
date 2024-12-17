@@ -8,8 +8,10 @@ using namespace std;
 
 int finX = -60;
 int finY = -10;
+int finMove = 0;
 int coinX = 54;
 int coinY = -2;
+int coin = 1;
 int batteryX = -56;
 int batteryY = 36;
 int gainedCoins = 0;
@@ -109,13 +111,13 @@ void drawBattery(){
 
     coloredRec(batteryX + 1, batteryX + 11, batteryY - 1, batteryY - 6,255,255,255);
 
-    for(int i = 0;i < 3;i++){
-        if(i < gainedCoins){
-            coloredRec(batteryX + 2 + i * 3, batteryX + 4 + i * 3, batteryY - 2, batteryY - 4,251,2,0);
-            coloredRec(batteryX + 2 + i * 3, batteryX + 4 + i * 3, batteryY - 4, batteryY - 5,169,8,14);
-        } else {
-            coloredRec(batteryX + 2 + i * 3, batteryX + 4 + i * 3, batteryY - 2, batteryY - 4,215,215,215);
-            coloredRec(batteryX + 2 + i * 3, batteryX + 4 + i * 3, batteryY - 4, batteryY - 5,167,167,167);
+    for (int i = 0; i < 3; i++){
+        if (i < gainedCoins){
+            coloredRec(batteryX + 2 + i * 3, batteryX + 4 + i * 3, batteryY - 2, batteryY - 4, 251, 2, 0);
+            coloredRec(batteryX + 2 + i * 3, batteryX + 4 + i * 3, batteryY - 4, batteryY - 5, 169, 8, 14);
+        } else{
+            coloredRec(batteryX + 2 + i * 3, batteryX + 4 + i * 3, batteryY - 2, batteryY - 4, 215, 215, 215);
+            coloredRec(batteryX + 2 + i * 3, batteryX + 4 + i * 3, batteryY - 4, batteryY - 5, 167, 167, 167);
         }
     }
 }
@@ -127,16 +129,72 @@ void display(){
     background();
     drawBattery();
     drawfin();
-    drawCoin();
+    if(coin){
+        drawCoin();
+    }
     glFlush(); 
+}
+bool touched(){
+    return finX + 16 > coinX && finX < coinX && coinY - 3 < finY;
+}
+void timeC(int){
+    glutPostRedisplay();
+    glutTimerFunc(5000, timeC, 0);
+    coin = 1;
+}
+void time(int){
+    glutPostRedisplay();
+    glutTimerFunc(30, time, 0);
+    // mode 0 no specail move 
+    // mode 1 jump up
+    // mode 2 return down
+    // keep moving x to make it more realistic
+    //charX++;
+    finX++;
+    if(finMove == 1){
+        finY++;
+    } else if(finMove == 2){
+        finY--;
+    }
+    if(finY == -10){
+        finMove = 0;
+    } else if(finY == 0){
+        finMove = 2;
+    }
+    if(finX > 60){
+        finX = -60;
+    }
+
+    if (coin){
+        coinX--;
+        if (coinX < -60){
+            coin = 0;
+            coinX = 60;
+        }
+        if(coin && touched()){
+            gainedCoins++;
+            coin = 0;
+            coinX = 60;
+        }
+    }
+}
+
+void handleSpecialKeys(int key, int x, int y) {
+    glutPostRedisplay();
+    if(key == GLUT_KEY_UP){
+        finMove = 1;
+    }
 }
 int main(int argc, char** argv){
     glutInit(&argc, argv);
-    std::srand(std::time(nullptr)); 
+    std::srand(std::time(NULL)); 
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowPosition(100,100);
     glutInitWindowSize(1200,800);
     glutCreateWindow("window");
     glutDisplayFunc(display);
+    glutSpecialFunc(handleSpecialKeys);
+    glutTimerFunc(30, time, 0);
+    glutTimerFunc(5000, timeC, 0);
     glutMainLoop();
 }
