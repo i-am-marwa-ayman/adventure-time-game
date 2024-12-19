@@ -1,20 +1,25 @@
 //-lGL -lGLU -lglut
 #include <GL/glut.h>
+#include <iostream>
 #include <vector>
 #include <cstdlib>
 #include <ctime>
 using namespace std;
 
 
-int finX = -60;
-int finY = -10;
+float finX = -60;
+float finY = -10;
 int finMove = 0;
-int coinX = 54;
-int coinY = -2;
-int coin = 1;
-int batteryX = -56;
-int batteryY = 36;
+float batteryX = -56;
+float batteryY = 36;
+float wallX = 5;
+float wallY = -18;
+int wall = 0;
+float coinX = 54;
+float coinY = -2;
 int gainedCoins = 0;
+int coin = 1;
+
 
 void coloredDotStrip(int start, float red, float green, float blue, int inc){
     glColor3f(red/255.0,green/255.0,blue/255.0);
@@ -104,14 +109,27 @@ void drawCoin(){
     coloredRec(coinX + 3, coinX + 5, coinY - 1, coinY - 2,215,99,2);
     coloredRec(coinX + 4, coinX + 5, coinY - 1, coinY - 4,215,99,2);
 }
+void drawWall(){
+    coloredRec(wallX , wallX + 10, wallY , wallY - 4,0,0,0);
+    coloredRec(wallX + 1, wallX + 9, wallY - 1, wallY - 3,0,209,3);
+    coloredRec(wallX + 1, wallX + 3, wallY - 1, wallY - 3,12,153,15);
+    coloredRec(wallX + 7, wallX + 9, wallY - 1, wallY - 3,176,251,185);
+
+
+    coloredRec(wallX + 1, wallX + 9, wallY - 4, wallY - 8,0,0,0);
+    coloredRec(wallX + 2, wallX + 8, wallY - 4, wallY - 7,0,209,3);
+    coloredRec(wallX + 2, wallX + 4, wallY - 4, wallY - 7,12,153,15);
+    coloredRec(wallX + 6, wallX + 8, wallY - 4, wallY - 7,176,251,185);
+
+}
 void drawBattery(){
-    coloredRec(batteryX + 0, batteryX + 12, batteryY - 1, batteryY - 6,0,0,0);
-    coloredRec(batteryX + 1, batteryX + 11, batteryY - 0, batteryY - 7,0,0,0);
-    coloredRec(batteryX + 12, batteryX + 13, batteryY - 2, batteryY - 5,0,0,0);
+    coloredRec(batteryX + 0, batteryX + 18, batteryY - 1, batteryY - 6,0,0,0);
+    coloredRec(batteryX + 1, batteryX + 17, batteryY - 0, batteryY - 7,0,0,0);
+    coloredRec(batteryX + 18, batteryX + 19, batteryY - 2, batteryY - 5,0,0,0);
 
-    coloredRec(batteryX + 1, batteryX + 11, batteryY - 1, batteryY - 6,255,255,255);
+    coloredRec(batteryX + 1, batteryX + 17, batteryY - 1, batteryY - 6,255,255,255);
 
-    for (int i = 0; i < 3; i++){
+    for (int i = 0; i < 5; i++){
         if (i < gainedCoins){
             coloredRec(batteryX + 2 + i * 3, batteryX + 4 + i * 3, batteryY - 2, batteryY - 4, 251, 2, 0);
             coloredRec(batteryX + 2 + i * 3, batteryX + 4 + i * 3, batteryY - 4, batteryY - 5, 169, 8, 14);
@@ -129,59 +147,70 @@ void display(){
     background();
     drawBattery();
     drawfin();
+    if(wall){
+        drawWall();
+    }
     if(coin){
         drawCoin();
     }
     glFlush(); 
 }
-bool touched(){
+bool gained(){
     return finX + 16 > coinX && finX < coinX && coinY - 3 < finY;
 }
-void timeC(int){
-    glutPostRedisplay();
-    glutTimerFunc(5000, timeC, 0);
-    coin = 1;
+bool fall(){
+    return finX + 16 > wallX && finX < wallX && wallY > finY - 15;
 }
 void time(int){
     glutPostRedisplay();
     glutTimerFunc(30, time, 0);
+
     // mode 0 no specail move 
     // mode 1 jump up
     // mode 2 return down
     // keep moving x to make it more realistic
-    //charX++;
+
     finX++;
+
     if(finMove == 1){
-        finY++;
+        finY+=1;
     } else if(finMove == 2){
-        finY--;
+        finY-=1;
     }
     if(finY == -10){
         finMove = 0;
-    } else if(finY == 0){
+    } else if(finY == 5){
         finMove = 2;
     }
     if(finX > 60){
         finX = -60;
+        int s = std::rand() % 4;
+        coin = s & 1;
+        wall = s & 2;
+        coinX = 60;
+        wallX = 60;
     }
-
     if (coin){
-        coinX--;
-        if (coinX < -60){
-            coin = 0;
-            coinX = 60;
-        }
-        if(coin && touched()){
+        coinX -= 1;
+        if(gained()){
             gainedCoins++;
             coin = 0;
             coinX = 60;
+        }
+    }
+    if(wall){
+        wallX -= 1;
+        if(fall()){
+            gainedCoins--;
+            wall = 0;
+            wallX = 60;
         }
     }
 }
 
 void handleSpecialKeys(int key, int x, int y) {
     glutPostRedisplay();
-    if(key == GLUT_KEY_UP){
+    if(key == GLUT_KEY_UP && finMove == 0){
         finMove = 1;
     }
 }
@@ -195,6 +224,5 @@ int main(int argc, char** argv){
     glutDisplayFunc(display);
     glutSpecialFunc(handleSpecialKeys);
     glutTimerFunc(30, time, 0);
-    glutTimerFunc(5000, timeC, 0);
     glutMainLoop();
 }
