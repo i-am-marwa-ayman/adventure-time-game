@@ -19,6 +19,7 @@ float coinX = 54;
 float coinY = -2;
 int gainedCoins = 0;
 int coin = 1;
+int dead = 0;
 
 
 void coloredDotStrip(int start, float red, float green, float blue, int inc){
@@ -120,7 +121,7 @@ void drawWall(){
     coloredRec(wallX + 2, wallX + 8, wallY - 4, wallY - 7,0,209,3);
     coloredRec(wallX + 2, wallX + 4, wallY - 4, wallY - 7,12,153,15);
     coloredRec(wallX + 6, wallX + 8, wallY - 4, wallY - 7,176,251,185);
-
+    
 }
 void drawBattery(){
     coloredRec(batteryX + 0, batteryX + 18, batteryY - 1, batteryY - 6,0,0,0);
@@ -139,6 +140,40 @@ void drawBattery(){
         }
     }
 }
+void drawDeadFin(){
+    int x = -8;
+    int y = -8;
+    coloredRec(x ,x + 15, y - 3, y - 16,50,40,77);
+    coloredRec(x + 1, x + 14, y - 2, y - 3,50,40,77);
+    coloredRec(x + 2, x + 13, y - 1, y - 2,50,40,77);
+
+    coloredRec(x + 1,x + 14, y - 3, y - 15,76,83,122); 
+    coloredRec(x + 2,x + 13, y - 2, y - 15,76,83,122);
+    
+    coloredRec(x + 2,x + 13, y - 4, y - 14,118,171,172); 
+    coloredRec(x + 3,x + 12, y - 3, y - 15,118,171,172);
+    
+    coloredRec(x + 4,x + 5, y - 3, y - 4,76,83,122);
+    coloredRec(x + 5,x + 6, y - 4, y - 5,76,83,122);
+
+    coloredRec(x + 11,x + 13, y - 13, y - 15,76,83,122);
+    coloredRec(x + 10,x + 11, y - 13, y - 14,76,83,122);
+    coloredRec(x + 9,x + 11, y - 12, y - 13,76,83,122);
+
+    coloredRec(x + 9,x + 10, y - 7, y - 11,50,40,77);
+    coloredRec(x + 9,x + 12, y - 7, y - 8,50,40,77);
+    coloredRec(x + 9,x + 12, y - 9, y - 10,50,40,77);
+    coloredRec(x + 11,x + 12, y - 7, y - 10,50,40,77);
+
+    coloredRec(x + 7,x + 8, y - 7, y - 11,50,40,77);
+
+    coloredRec(x + 3,x + 4, y - 7, y - 11,50,40,77);
+    coloredRec(x + 3,x + 6, y - 7, y - 8,50,40,77);
+    coloredRec(x + 3,x + 5, y - 9, y - 10,50,40,77);
+    coloredRec(x + 5,x + 6, y - 8, y - 9,50,40,77);
+    coloredRec(x + 5,x + 6, y - 10, y - 11,50,40,77);
+
+}
 void display(){
     glClear(GL_COLOR_BUFFER_BIT);
     gluOrtho2D(-60, 60, -40, 40);
@@ -146,12 +181,16 @@ void display(){
     glLoadIdentity();
     background();
     drawBattery();
-    drawfin();
-    if(wall){
-        drawWall();
-    }
-    if(coin){
-        drawCoin();
+    if(dead){
+        drawDeadFin();
+    } else {
+        drawfin();
+        if (wall){
+            drawWall();
+        }
+        if (coin){
+            drawCoin();
+        }
     }
     glFlush(); 
 }
@@ -201,6 +240,9 @@ void time(int){
     if(wall){
         wallX -= 1;
         if(fall()){
+            if(gainedCoins == 0){
+                dead = 1;
+            }
             gainedCoins--;
             wall = 0;
             wallX = 60;
