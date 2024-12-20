@@ -7,9 +7,9 @@
 using namespace std;
 
 
-float finX = -60;
-float finY = -10;
-int finMove = 0;
+float finnX = -60;
+float finnY = -10;
+int finnMove = 0;
 float batteryX = -56;
 float batteryY = 36;
 float wallX = 5;
@@ -60,46 +60,46 @@ void background(){
     coloredDotStrip(-20, 34, 139, 34, 2);
     coloredRec(-60,60,-20, -40, 34, 139, 34);
 }
-void drawfin(){
-    //head
-    coloredRec(finX + 2, finX + 12, finY - 1, finY - 11,255,255,255);
-    coloredRec(finX + 4, finX + 10, finY - 3, finY - 8,253,220,179);
-    coloredRec(finX + 3, finX + 11, finY - 4, finY - 7,253,220,179);
+void drawfinn(){
+    // head
+    coloredRec(finnX + 2, finnX + 12, finnY - 1, finnY - 11,255,255,255);
+    coloredRec(finnX + 4, finnX + 10, finnY - 3, finnY - 8,253,220,179);
+    coloredRec(finnX + 3, finnX + 11, finnY - 4, finnY - 7,253,220,179);
     
-    //body
-    coloredRec(finX + 2, finX + 12, finY - 9, finY - 13,161,212,255);
-    coloredRec(finX + 2, finX + 12, finY - 13, finY - 15,38,160,241);
+    // body
+    coloredRec(finnX + 2, finnX + 12, finnY - 9, finnY - 13,161,212,255);
+    coloredRec(finnX + 2, finnX + 12, finnY - 13, finnY - 15,38,160,241);
     
-    //back
-    coloredRec(finX + 1, finX + 3, finY - 8, finY - 11,149,203,79);
-    coloredRec(finX + 11, finX + 13, finY - 8, finY - 11,149,203,79);
+    // back
+    coloredRec(finnX + 1, finnX + 3, finnY - 8, finnY - 11,149,203,79);
+    coloredRec(finnX + 11, finnX + 13, finnY - 8, finnY - 11,149,203,79);
 
-    //hand 
-    coloredRec(finX + 1, finX + 2, finY - 9, finY - 12,253,220,179);
-    coloredRec(finX + 12, finX + 13, finY - 9, finY - 12,253,220,179);
+    // hand 
+    coloredRec(finnX + 1, finnX + 2, finnY - 9, finnY - 12,253,220,179);
+    coloredRec(finnX + 12, finnX + 13, finnY - 9, finnY - 12,253,220,179);
     
 
-    //smile
-    coloredRec(finX + 4, finX + 5, finY - 5, finY - 6,0,0,0);
-    coloredRec(finX + 9, finX + 10, finY - 5, finY - 6,0,0,0);
-    coloredRec(finX + 6, finX + 8, finY - 6, finY - 7,0,0,0);
+    // smile
+    coloredRec(finnX + 4, finnX + 5, finnY - 5, finnY - 6,0,0,0);
+    coloredRec(finnX + 9, finnX + 10, finnY - 5, finnY - 6,0,0,0);
+    coloredRec(finnX + 6, finnX + 8, finnY - 6, finnY - 7,0,0,0);
 
-    //black outline
-    coloredRec(finX + 2, finX + 4, finY, finY - 1,0,0,0);
-    coloredRec(finX + 10, finX + 12, finY, finY - 1,0,0,0);
-    coloredRec(finX + 4, finX + 10, finY - 1, finY - 2,0,0,0);
-    coloredRec(finX + 1, finX + 2, finY - 1, finY - 8,0,0,0);
-    coloredRec(finX + 12, finX + 13, finY - 1, finY - 8,0,0,0);
+    // black outline
+    coloredRec(finnX + 2, finnX + 4, finnY, finnY - 1,0,0,0);
+    coloredRec(finnX + 10, finnX + 12, finnY, finnY - 1,0,0,0);
+    coloredRec(finnX + 4, finnX + 10, finnY - 1, finnY - 2,0,0,0);
+    coloredRec(finnX + 1, finnX + 2, finnY - 1, finnY - 8,0,0,0);
+    coloredRec(finnX + 12, finnX + 13, finnY - 1, finnY - 8,0,0,0);
     
-    coloredRec(finX, finX + 1, finY - 8, finY - 12,0,0,0);
-    coloredRec(finX + 13, finX + 14, finY - 8, finY - 12,0,0,0);
+    coloredRec(finnX, finnX + 1, finnY - 8, finnY - 12,0,0,0);
+    coloredRec(finnX + 13, finnX + 14, finnY - 8, finnY - 12,0,0,0);
 
-    coloredRec(finX + 1, finX + 2, finY - 12, finY - 15,0,0,0);
-    coloredRec(finX + 12, finX + 13, finY - 12, finY - 15,0,0,0);
+    coloredRec(finnX + 1, finnX + 2, finnY - 12, finnY - 15,0,0,0);
+    coloredRec(finnX + 12, finnX + 13, finnY - 12, finnY - 15,0,0,0);
     
-    coloredRec(finX + 2, finX + 5, finY - 15, finY - 16,0,0,0);
-    coloredRec(finX + 9, finX + 12, finY - 15, finY - 16,0,0,0);
-    coloredRec(finX + 5, finX + 9, finY - 14, finY - 15,0,0,0);
+    coloredRec(finnX + 2, finnX + 5, finnY - 15, finnY - 16,0,0,0);
+    coloredRec(finnX + 9, finnX + 12, finnY - 15, finnY - 16,0,0,0);
+    coloredRec(finnX + 5, finnX + 9, finnY - 14, finnY - 15,0,0,0);
 }
 void drawCoin(){
     coloredRec(coinX + 1, coinX + 4, coinY - 0, coinY - 5,215,99,2);
@@ -111,25 +111,28 @@ void drawCoin(){
     coloredRec(coinX + 4, coinX + 5, coinY - 1, coinY - 4,215,99,2);
 }
 void drawWall(){
+    // upper part
     coloredRec(wallX , wallX + 10, wallY , wallY - 4,0,0,0);
     coloredRec(wallX + 1, wallX + 9, wallY - 1, wallY - 3,0,209,3);
     coloredRec(wallX + 1, wallX + 3, wallY - 1, wallY - 3,12,153,15);
     coloredRec(wallX + 7, wallX + 9, wallY - 1, wallY - 3,176,251,185);
 
-
+    // lower part
     coloredRec(wallX + 1, wallX + 9, wallY - 4, wallY - 8,0,0,0);
     coloredRec(wallX + 2, wallX + 8, wallY - 4, wallY - 7,0,209,3);
     coloredRec(wallX + 2, wallX + 4, wallY - 4, wallY - 7,12,153,15);
     coloredRec(wallX + 6, wallX + 8, wallY - 4, wallY - 7,176,251,185);
-    
 }
 void drawBattery(){
+    // outlines
     coloredRec(batteryX + 0, batteryX + 18, batteryY - 1, batteryY - 6,0,0,0);
     coloredRec(batteryX + 1, batteryX + 17, batteryY - 0, batteryY - 7,0,0,0);
     coloredRec(batteryX + 18, batteryX + 19, batteryY - 2, batteryY - 5,0,0,0);
-
+    
+    // white rec
     coloredRec(batteryX + 1, batteryX + 17, batteryY - 1, batteryY - 6,255,255,255);
-
+    
+    // charge
     for (int i = 0; i < 5; i++){
         if (i < gainedCoins){
             coloredRec(batteryX + 2 + i * 3, batteryX + 4 + i * 3, batteryY - 2, batteryY - 4, 251, 2, 0);
@@ -140,7 +143,7 @@ void drawBattery(){
         }
     }
 }
-void drawDeadFin(){
+void drawDeadfinn(){
     int x = -8;
     int y = -8;
     coloredRec(x ,x + 15, y - 3, y - 16,50,40,77);
@@ -159,14 +162,17 @@ void drawDeadFin(){
     coloredRec(x + 11,x + 13, y - 13, y - 15,76,83,122);
     coloredRec(x + 10,x + 11, y - 13, y - 14,76,83,122);
     coloredRec(x + 9,x + 11, y - 12, y - 13,76,83,122);
-
+    
+    // P
     coloredRec(x + 9,x + 10, y - 7, y - 11,50,40,77);
     coloredRec(x + 9,x + 12, y - 7, y - 8,50,40,77);
     coloredRec(x + 9,x + 12, y - 9, y - 10,50,40,77);
     coloredRec(x + 11,x + 12, y - 7, y - 10,50,40,77);
-
+    
+    // I
     coloredRec(x + 7,x + 8, y - 7, y - 11,50,40,77);
-
+    
+    // R
     coloredRec(x + 3,x + 4, y - 7, y - 11,50,40,77);
     coloredRec(x + 3,x + 6, y - 7, y - 8,50,40,77);
     coloredRec(x + 3,x + 5, y - 9, y - 10,50,40,77);
@@ -182,9 +188,9 @@ void display(){
     background();
     drawBattery();
     if(dead){
-        drawDeadFin();
+        drawDeadfinn();
     } else {
-        drawfin();
+        drawfinn();
         if (wall){
             drawWall();
         }
@@ -195,10 +201,10 @@ void display(){
     glFlush(); 
 }
 bool gained(){
-    return finX + 16 > coinX && finX < coinX && coinY - 3 < finY;
+    return finnX + 16 > coinX && finnX < coinX && coinY - 3 < finnY;
 }
 bool fall(){
-    return finX + 16 > wallX && finX < wallX && wallY > finY - 15;
+    return finnX + 16 > wallX && finnX < wallX && wallY > finnY - 15;
 }
 void time(int){
     glutPostRedisplay();
@@ -209,20 +215,20 @@ void time(int){
     // mode 2 return down
     // keep moving x to make it more realistic
 
-    finX++;
+    finnX++;
 
-    if(finMove == 1){
-        finY+=1;
-    } else if(finMove == 2){
-        finY-=1;
+    if(finnMove == 1){
+        finnY+=1;
+    } else if(finnMove == 2){
+        finnY-=1;
     }
-    if(finY == -10){
-        finMove = 0;
-    } else if(finY == 5){
-        finMove = 2;
+    if(finnY == -10){
+        finnMove = 0;
+    } else if(finnY == 5){
+        finnMove = 2;
     }
-    if(finX > 60){
-        finX = -60;
+    if(finnX > 60){
+        finnX = -60;
         int s = std::rand() % 4;
         coin = s & 1;
         wall = s & 2;
@@ -252,8 +258,8 @@ void time(int){
 
 void handleSpecialKeys(int key, int x, int y) {
     glutPostRedisplay();
-    if(key == GLUT_KEY_UP && finMove == 0){
-        finMove = 1;
+    if(key == GLUT_KEY_UP && finnMove == 0){
+        finnMove = 1;
     }
 }
 int main(int argc, char** argv){
