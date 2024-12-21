@@ -10,16 +10,20 @@ using namespace std;
 float finnX = -60;
 float finnY = -10;
 int finnMove = 0;
+
 float batteryX = -56;
 float batteryY = 36;
+int currentPoints = 0;
+
 float wallX = 5;
 float wallY = -18;
 int wall = 0;
+
 float coinX = 54;
 float coinY = -2;
-int gainedCoins = 0;
 int coin = 0;
-int dead = 0;
+
+int lose = 0;
 int win = 0;
 
 
@@ -135,7 +139,7 @@ void drawBattery(){
     
     // charge
     for (int i = 0; i < 5; i++){
-        if (i < gainedCoins){
+        if (i < currentPoints){
             coloredRec(batteryX + 2 + i * 3, batteryX + 4 + i * 3, batteryY - 2, batteryY - 4, 251, 2, 0);
             coloredRec(batteryX + 2 + i * 3, batteryX + 4 + i * 3, batteryY - 4, batteryY - 5, 169, 8, 14);
         } else{
@@ -280,8 +284,7 @@ void display(){
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     background();
-    drawBattery();
-    if(dead){
+    if(lose){
         drawDeadfinn();
     } else if(win){
         drawWinnerCup();
@@ -295,13 +298,14 @@ void display(){
             drawCoin();
         }
     }
+    drawBattery();
     glFlush(); 
 }
-bool gained(){
-    return finnX + 16 > coinX && finnX < coinX && coinY - 3 < finnY;
+bool gainPoint(){
+    return finnX + 13 > coinX && finnX < coinX && coinY - 3 < finnY;
 }
-bool fall(){
-    return finnX + 16 > wallX && finnX < wallX && wallY > finnY - 15;
+bool losePoint(){
+    return finnX + 13 > wallX && finnX < wallX && wallY > finnY - 15;
 }
 void time(int){
     glutPostRedisplay();
@@ -312,8 +316,11 @@ void time(int){
     // mode 2 return down
     // keep moving x to make it more realistic
 
-    finnX++;
+    if(lose || win){
+        return;
+    }
 
+    finnX++;
     if(finnMove == 1){
         finnY+=1;
     } else if(finnMove == 2){
@@ -325,31 +332,33 @@ void time(int){
         finnMove = 2;
     }
     if(finnX > 60){
-        finnX = -60;
-        int s = std::rand() % 4;
-        coin = s & 1;
-        wall = s & 2;
+        // 0 mean no coin no wall
+        // 1 mean    coin no wall
+        // 2 mean no coin    wall
+        // 3 mean    coin    wall
+        int randomNumber = std::rand() % 4;
+        coin = randomNumber & 1;
+        wall = randomNumber & 2;
+        finnX = -70;
         coinX = 60;
         wallX = 60;
     }
     if (coin){
         coinX -= 1;
-        if(gained()){
-            if(gainedCoins == 4){
-                win = 1;
-            }
-            gainedCoins++;
+        if(gainPoint()){
+            currentPoints++;
+            win = (currentPoints == 5) ? 1:0;
+
             coin = 0;
             coinX = 60;
         }
     }
     if(wall){
         wallX -= 1;
-        if(fall()){
-            if(gainedCoins == 0){
-                dead = 1;
-            }
-            gainedCoins--;
+        if(losePoint()){
+            currentPoints--;
+            lose = (currentPoints == -1) ? 1:0;
+
             wall = 0;
             wallX = 60;
         }
