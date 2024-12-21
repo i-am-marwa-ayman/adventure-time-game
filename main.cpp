@@ -18,8 +18,9 @@ int wall = 0;
 float coinX = 54;
 float coinY = -2;
 int gainedCoins = 0;
-int coin = 1;
+int coin = 0;
 int dead = 0;
+int win = 0;
 
 
 void coloredDotStrip(int start, float red, float green, float blue, int inc){
@@ -33,7 +34,7 @@ void coloredDotStrip(int start, float red, float green, float blue, int inc){
         glEnd();
     }
 }
-void coloredRec(int startX, int endX, int startY, int endY, float red, float green, float blue){
+void coloredRec(float startX, float endX, float startY, float endY, float red, float green, float blue){
     glColor3f(red/255.0,green/255.0,blue/255.0);
     glBegin(GL_QUADS);
     glVertex2f(startX, startY);
@@ -180,6 +181,99 @@ void drawDeadfinn(){
     coloredRec(x + 5,x + 6, y - 10, y - 11,50,40,77);
 
 }
+void drawWinnerCup(){
+    float x = -11.5;
+    float y = 0;
+    // base outline
+    coloredRec(x + 5,x + 20, y , y - 15,67,3,5);
+    coloredRec(x + 6,x + 19, y , y - 16,67,3,5);
+    coloredRec(x + 7,x + 18, y , y - 17,67,3,5);
+    coloredRec(x + 9,x + 16, y , y - 18,67,3,5);
+    
+    // the darkest color
+    coloredRec(x + 6,x + 19, y - 1, y - 15,242,170,24); 
+    coloredRec(x + 7,x + 18, y - 1, y - 16,242,170,24);
+    coloredRec(x + 9,x + 16, y - 1, y - 17,242,170,24); 
+
+    // lighter color
+    coloredRec(x + 7,x + 17, y - 2, y - 14,249,234,21); 
+    coloredRec(x + 8,x + 16, y - 2, y - 15,249,234,21);
+    coloredRec(x + 9,x + 15, y - 2, y - 16,249,234,21);
+    
+    // some effects
+    coloredRec(x + 6,x + 19, y - 1, y - 2,249,234,21);
+    coloredRec(x + 18,x + 19, y - 1, y - 14,249,234,21);
+    coloredRec(x + 17,x + 18, y - 14, y - 15,249,234,21);
+
+    // the lightest color
+    coloredRec(x + 7,x + 17, y - 1, y - 2,249,245,156); 
+    coloredRec(x + 8,x + 15, y - 1, y - 14,249,245,156);
+    coloredRec(x + 9,x + 14, y - 1, y - 15,249,245,156); 
+
+    // left arm outline
+    coloredRec(x + 3,x + 5, y - 10, y - 14,67,3,5);
+    coloredRec(x + 2,x + 3, y - 10, y - 13,67,3,5);
+    coloredRec(x + 1,x + 4, y - 7, y - 12,67,3,5);
+    coloredRec(x + 1,x + 5, y - 5, y - 8,67,3,5);
+    
+    // darkest part
+    coloredRec(x + 2,x + 3, y - 7, y - 12,242,170,24); 
+    coloredRec(x + 2,x + 5, y - 6, y - 7,242,170,24); 
+    coloredRec(x + 3,x + 5, y - 11, y - 13,242,170,24); 
+
+    // lighter color
+    coloredRec(x + 2,x + 3, y - 6, y - 11,249,234,21);
+    coloredRec(x + 3,x + 5, y - 11, y - 12,249,234,21);
+    coloredRec(x + 4,x + 5, y - 11, y - 13,249,234,21);
+
+    // lightest color
+    coloredRec(x + 2,x + 3, y - 6, y - 10,249,245,156);
+    coloredRec(x + 2,x + 4, y - 6, y - 7,249,245,156);
+
+    // right arm outline
+    coloredRec(x + 20,x + 22, y - 10, y - 14,67,3,5);
+    coloredRec(x + 22,x + 23, y - 10, y - 13,67,3,5);
+    coloredRec(x + 21,x + 24, y - 7, y - 12,67,3,5);
+    coloredRec(x + 20,x + 24, y - 5, y - 8,67,3,5);
+    
+    // darkest part
+    coloredRec(x + 22,x + 23, y - 7, y - 12,242,170,24); 
+    coloredRec(x + 20,x + 23, y - 6, y - 7,242,170,24); 
+    coloredRec(x + 20,x + 22, y - 11, y - 13,242,170,24); 
+
+    // lighter color
+    coloredRec(x + 22,x + 23, y - 6, y - 11,249,234,21);
+    coloredRec(x + 20,x + 22, y - 11, y - 12,249,234,21);
+    coloredRec(x + 20,x + 21, y - 11, y - 13,249,234,21);
+
+    // lightest color
+    coloredRec(x + 22,x + 23, y - 6, y - 10,249,245,156);
+    coloredRec(x + 21,x + 23, y - 6, y - 7,249,245,156);
+
+    // cub hand outline
+    coloredRec(x + 10.5,x + 14.5, y - 18, y - 22,67,3,5);
+    coloredRec(x + 8,x + 17, y - 22, y - 23,67,3,5);
+    coloredRec(x + 7,x + 18, y - 23, y - 24,67,3,5);
+    coloredRec(x + 6,x + 19, y - 24, y - 26,67,3,5);
+
+    // darkest part
+    coloredRec(x + 11.5,x + 13.5, y - 18, y - 22,242,170,24);
+    coloredRec(x + 8,x + 17, y - 23, y - 24,242,170,24);
+    coloredRec(x + 7,x + 18, y - 24, y - 25,242,170,24);
+
+    // lighter color 
+    coloredRec(x + 11.5,x + 12.5, y - 19, y - 22,249,234,21);
+    coloredRec(x + 16,x + 17, y - 23, y - 24,249,234,21);
+    coloredRec(x + 12,x + 15, y - 23, y - 24,249,234,21);
+    coloredRec(x + 17,x + 18, y - 24, y - 25,249,234,21);
+    coloredRec(x + 13,x + 14, y - 24, y - 25,249,234,21);
+    coloredRec(x + 8,x + 9, y - 24, y - 25,249,234,21);
+
+    // the lightest color
+    coloredRec(x + 9,x + 13, y - 24, y - 25,249,245,156);
+    coloredRec(x + 10,x + 12, y - 23, y - 24,249,245,156);
+    coloredRec(x + 11.5,x + 12.5, y - 20, y - 22,249,245,156);
+}
 void display(){
     glClear(GL_COLOR_BUFFER_BIT);
     gluOrtho2D(-60, 60, -40, 40);
@@ -189,7 +283,10 @@ void display(){
     drawBattery();
     if(dead){
         drawDeadfinn();
-    } else {
+    } else if(win){
+        drawWinnerCup();
+    }
+    else {
         drawfinn();
         if (wall){
             drawWall();
@@ -238,6 +335,9 @@ void time(int){
     if (coin){
         coinX -= 1;
         if(gained()){
+            if(gainedCoins == 4){
+                win = 1;
+            }
             gainedCoins++;
             coin = 0;
             coinX = 60;
