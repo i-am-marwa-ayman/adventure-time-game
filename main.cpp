@@ -336,7 +336,7 @@ void time(int){
         // 1 mean    coin no wall
         // 2 mean no coin    wall
         // 3 mean    coin    wall
-        int randomNumber = std::rand() % 4;
+        int randomNumber = (std::rand() % 3) + 1;
         coin = randomNumber & 1;
         wall = randomNumber & 2;
         finnX = -70;
