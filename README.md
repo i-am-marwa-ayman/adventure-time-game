@@ -1,5 +1,5 @@
 # Adventure time Game
-
+![Game Screenshot](./src/screen.png)
 ## Overview
 This project is a simple 2D OpenGL game implemented in C++. The game uses various graphical components and animations to simulate a fun and interactive environment. The player controls Finn, a character who collects coins, avoids walls, and earns points while progressing through the game.
 
