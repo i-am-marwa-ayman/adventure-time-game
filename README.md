@@ -17,23 +17,30 @@ This project is a simple 2D OpenGL game implemented in C++. The game uses variou
 - Collect coins and batteries to earn points.
 - Avoid walls to prevent losing health.
 
+
 ## Dependencies
-To compile and run this project, you need the following libraries installed on your system:
-- `-lGL`
-- `-lGLU`
-- `-lglut`
+To compile and run this project, you need the following OpenGL libraries installed:
+- `GL` (OpenGL)
+- `GLU` (OpenGL Utility Library)
+- `glut` (OpenGL Utility Toolkit)
+
+### Ubuntu/Debian:
+```bash
+sudo apt-get install freeglut3-dev
+```
+
 
 ## Installation
 1. **Clone the Repository:**
    ```bash
-   git clone <repository-url>
-   cd <repository-folder>
+   https://github.com/i-am-marwa-ayman/adventure-time-game.git
+   cd adventure-time-game
    ```
 
 2. **Compile the Code:**
    Use the following command to compile the project:
    ```bash
-   g++ -o main main.cpp -lGL -lGLU -lglut
+   g++ -o game main.cpp -lGL -lGLU -lglut
    ```
 
 3. **Run the Game:**
@@ -46,4 +53,3 @@ To compile and run this project, you need the following libraries installed on y
 - Add more characters or collectibles.
 - Enhance Background Details.
 - Realistic Movement.
-
