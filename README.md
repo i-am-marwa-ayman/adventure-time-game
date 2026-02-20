@@ -33,7 +33,7 @@ sudo apt-get install freeglut3-dev
 ## Installation
 1. **Clone the Repository:**
    ```bash
-   https://github.com/i-am-marwa-ayman/adventure-time-game.git
+   git clone https://github.com/i-am-marwa-ayman/adventure-time-game.git
    cd adventure-time-game
    ```
 
